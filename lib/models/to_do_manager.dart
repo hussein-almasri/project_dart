@@ -26,14 +26,22 @@ class TodoManager {
 
   //completeTask 
    void completeTask(int id){
-     for(Task task in _tasks){
-        if(task.id == id){
-            task.complete();
+    for(Task task in _tasks){
+      if(task.id ==id){
+        if(task.isCompleted){
+          print("Task is already completed");
           return ;
         }
-     }
-    print("Invalid Id In List Of Task");
+        else{
+          task.complete();
+          print("Task completed successfully.");
+          return ;
+        }
+      }
     }
+   print("Invalid Id In List Of Task");
+
+      }
     // Show All Task 
   void showTasks(){
     for(Task task in _tasks){
