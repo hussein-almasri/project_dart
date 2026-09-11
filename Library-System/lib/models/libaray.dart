@@ -2,7 +2,7 @@ import 'Book.dart';
 import 'category.dart';
 import 'member.dart';
 
-class Libray {
+class Library {
   
   List<Book> _books =[];
   List<Member> _members =[];
@@ -72,7 +72,7 @@ class Libray {
     return null;
   }
   //Borrow Book
-  void borrowBook(memberId, bookId){
+  void borrowBook(int memberId, int bookId){
     Member ? member = findMember(memberId);
     if(member == null){
       print("Error: Member with ID $memberId not found.");
@@ -97,7 +97,7 @@ class Libray {
   }
 
   // Return Book
-  void returnBook(memberId, bookId){
+  void returnBook(int memberId, int bookId){
     Member ? member =findMember(memberId);
     if(member == null){
       print("Error: Member with ID $memberId not found .");
@@ -117,7 +117,7 @@ class Libray {
   }
 
   // Search
- List<Book> searchBooks(keyword){
+ List<Book> searchBooks(String keyword){
    List<Book> search =   _books.where((book)=> book.title.toUpperCase().contains(keyword.toUpperCase()) || book.auther.toUpperCase().contains(keyword.toUpperCase())).toList();
     return search ;
   }
@@ -134,7 +134,7 @@ class Libray {
 }
 
  // Get Books By Category 
-  List<Book> getBooksByCategory(category){
+  List<Book> getBooksByCategory(Category category){
   return _books.where((book)=> book.category ==category).toList();
 }
   

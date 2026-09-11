@@ -3,7 +3,7 @@ import 'models/category.dart';
 import 'models/member.dart';
 import 'models/libaray.dart';
 void main() {
-  final library = Libray();
+  final library = Library();
   // ============================================================
   // EMPTY LIBRARY
   // ============================================================
