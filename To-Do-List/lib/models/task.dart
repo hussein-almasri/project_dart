@@ -10,9 +10,16 @@ class Task {
   Task(
       this.title ,
       this.description ,
-    ): id = _nextId ++;
+    ): id = _nextId ++; 
 
   void complete(){
     isCompleted =true ;
   }
+  @override
+  String toString(){
+     String status = isCompleted ? "Completed" : "Pending";
+     return "$id | $title | $description | $status";
+
+  }
+
 }

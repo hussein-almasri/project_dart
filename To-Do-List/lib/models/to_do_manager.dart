@@ -14,7 +14,7 @@ class TodoManager {
   }
 
   // Remove Task
-  void removetask(int id){
+  void removeTask(int id){
     for(Task task in _tasks){
         if(task.id == id){
           _tasks.remove(task);
@@ -71,6 +71,7 @@ class TodoManager {
     final tasksPending = _tasks.where((task)=> !task.isCompleted).toList();
     if(tasksPending.isEmpty){
       print("No Tasks Pending ");
+      return ;
     }
     for(var task in tasksPending){
       String status = task.isCompleted ? "Completed": "Pending";
@@ -89,6 +90,7 @@ class TodoManager {
       }
     }
       print("You don't Have This ID");
+      return null ;
   }
 
   // get total Tasks
@@ -116,4 +118,3 @@ class TodoManager {
     }
 
 }
-
