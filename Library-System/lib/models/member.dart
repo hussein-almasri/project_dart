@@ -11,23 +11,26 @@ class Member {
   
   // grtter
   List<Book>get books => List.unmodifiable(_books);
+  
   Member({
     required this.name,
     required this.email}
   ) : _id = _nextId++;
 
-  // Add Borrow Book without Chick Just Add The Chick In Class Libray It Managmenet The Status 
+  // Add Borrow Book 
   void addBorrowBook(Book book){
      if(book.borrowBook()){
       _books.add(book);
      }
   }
-  // Remov Borrow Book without Chick Just Remov The Chick In Class Libray It Managmenet The Status 
+  
+  // Remov Borrow Book  
   void removBorrowBook(Book book){
     if(book.returnBook()){
       _books.remove(book);
     }
   }
+  
   void showBorrowBook(){
     for(var book in _books){
       print(book);
