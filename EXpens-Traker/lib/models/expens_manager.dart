@@ -80,23 +80,9 @@ class ExpensManager {
 
  // remove All Expans 
   void removAllExpens(){
-    
+    _expens.clear();
   }
-  
+
  }
 
 
-void main(){
-  ExpensManager expensManager =ExpensManager();
-  expensManager.addExpens("title", 0, Categroy.Food);
-  expensManager.addExpens("title",0, Categroy.Food);
-  // expensManager.showExpans();
-  // print(expensManager.filterByCategory(Categroy.Bills));
-  // expensManager.removExpens(0);
-  // expensManager.showExpans();
-  // print(expensManager.searchExpenses("TiLe")) ;
-  print(expensManager.getTotal());
-  print(expensManager.getTotalByCategory(Categroy.Food));
-  print(expensManager.getExpansCount());
-  print(expensManager.getAvgExpans());
-}
