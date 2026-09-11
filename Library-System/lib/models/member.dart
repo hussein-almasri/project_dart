@@ -18,16 +18,12 @@ class Member {
 
   // Add Borrow Book 
   void addBorrowBook(Book book){
-     if(book.borrowBook()){
       _memberBorrow.add(book);
-     }
   }
   
   // Remov Borrow Book  
   void removBorrowBook(Book book){
-    if(book.returnBook()){
       _memberBorrow.remove(book);
-    }
   }
   
   void showBorrowBook(){
