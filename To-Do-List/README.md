@@ -1,4 +1,3 @@
-# project_dart
 To-Do List --- Dart
 
 A simple console-based To-Do List application built with Dart as part of
