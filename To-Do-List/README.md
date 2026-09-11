@@ -8,7 +8,7 @@ my journey toward learning Dart and preparing for Flutter.
 The goal of this project is to practice Dart by building a small
 application from scratch and combining multiple Dart concepts in one
 project.
-
+ 
 📚 Concepts Practiced
 
 Object-Oriented Programming
