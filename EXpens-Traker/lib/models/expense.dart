@@ -1,22 +1,24 @@
 import 'categroy.dart';
-class Expens {
+class Expense {
   
   static int _nextId =0 ; 
   
-  int id = 0 ;
+  final int id ;
   final String title ;
-  double amount ;
+  final double _amount ;
   final DateTime _dateTime =DateTime.now() ;
-  Categroy categroy ;
-  Expens(
+  final Category category ;
+
+  Expense(
     this.title ,
-    this.amount ,
-    this.categroy
+    this._amount ,
+    this.category
     ) : id =_nextId ++ ; 
     DateTime get dateTime =>_dateTime;
+    double get amount =>_amount ;
     @override
     String toString(){
-      return "$id  | $title | $amount | $categroy  |$_dateTime " ;
+      return "$id  | $title | $amount | $category  |$_dateTime " ;
     }
 
 }

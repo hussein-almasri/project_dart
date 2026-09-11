@@ -1,4 +1,4 @@
-enum  Categroy {
+enum  Category {
   Food,
   Transport,
   Shopping,
