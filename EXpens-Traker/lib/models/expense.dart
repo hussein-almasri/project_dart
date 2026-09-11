@@ -1,4 +1,4 @@
-import 'categroy.dart';
+import 'category.dart';
 class Expense {
   
   static int _nextId =0 ; 

@@ -1,5 +1,5 @@
-import 'categroy.dart';
-import 'expens.dart';
+import 'category.dart';
+import 'expense.dart';
 class ExpenseManager {
 
   List<Expense> _expenses =[];
