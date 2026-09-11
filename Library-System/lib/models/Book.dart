@@ -3,7 +3,7 @@ import 'category.dart';
 class Book {
   static int _nextId =0 ;
 
-  final int _id ;
+  final int id ;
   final String title ;
   final String auther ;
   final Category category ;
@@ -15,7 +15,7 @@ class Book {
       required this.auther,
       required this.category
        }
-    ) : _id =_nextId ++;
+    ) : id =_nextId ++;
   
   // Return Book
    bool returnBook(){
@@ -39,7 +39,7 @@ class Book {
 
   @override
   String toString(){
-    return "$_id | $title |$auther |$category |$isAvailable";
+    return "$id | $title |$auther |$category |$isAvailable";
   }
 
 }

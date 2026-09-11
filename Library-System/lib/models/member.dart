@@ -1,10 +1,9 @@
 import 'Book.dart';
-import 'category.dart';
 class Member {
   
   static int _nextId =1000;
 
-  final int _id ;
+  final int id ;
   final String name ;
   final String email ;
   List<Book> _books =[];
@@ -15,7 +14,7 @@ class Member {
   Member({
     required this.name,
     required this.email}
-  ) : _id = _nextId++;
+  ) : id = _nextId++;
 
   // Add Borrow Book 
   void addBorrowBook(Book book){
@@ -36,4 +35,9 @@ class Member {
       print(book);
     }
   }
+  @override
+  String toString(){
+    return "$id | $name |$email ";
+  }
+
 }
