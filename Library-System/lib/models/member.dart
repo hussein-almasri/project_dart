@@ -6,10 +6,10 @@ class Member {
   final int id ;
   final String name ;
   final String email ;
-  List<Book> _books =[];
+  List<Book> _memberBorrow =[];
   
   // grtter
-  List<Book>get books => List.unmodifiable(_books);
+  List<Book>get memberBorrow => List.unmodifiable( _memberBorrow);
   
   Member({
     required this.name,
@@ -19,19 +19,19 @@ class Member {
   // Add Borrow Book 
   void addBorrowBook(Book book){
      if(book.borrowBook()){
-      _books.add(book);
+      _memberBorrow.add(book);
      }
   }
   
   // Remov Borrow Book  
   void removBorrowBook(Book book){
     if(book.returnBook()){
-      _books.remove(book);
+      _memberBorrow.remove(book);
     }
   }
   
   void showBorrowBook(){
-    for(var book in _books){
+    for(var book in _memberBorrow){
       print(book);
     }
   }

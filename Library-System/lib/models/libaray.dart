@@ -6,7 +6,6 @@ class Libray {
   
   List<Book> _books =[];
   List<Member> _members =[];
-  
   //getter
   List<Book> get books => List.unmodifiable(_books);
   List<Member> get members =>List.unmodifiable(_members);
@@ -44,7 +43,7 @@ class Libray {
   }
 
   // Find Member By ID
-  Member? findMember(int id){
+    Member? findMember(int id){
     for (var member in _members){
       if(member.id == id){
           return member ;
@@ -52,7 +51,87 @@ class Libray {
     }
     return null;
   }
+  //Borrow Book
+  void borrowBook(memberId, bookId){
+    Member ? member = findMember(memberId);
+    if(member == null){
+      print("Error: Member with ID $memberId not found.");
+      return ;
+    }
+    Book ? book = findBook(bookId);
+    if(book ==null){
+      print("Error: Book with ID $bookId not found.");
+      return ;
+    }
+    if(!book.isAvailable){
+      print("Error: Book '${book.title}' is already borrowed.");
+      return ;
+    }
+    if(member.memberBorrow.contains(book)){
+      print("Error: This member has already borrowed this book.");
+      return ;
+    }
+    book.borrowBook();
+    member.addBorrowBook(book);
+    print("Success: Book '${book.title}' has been borrowed by ${member.name}.");
+  }
 
+  // Return Book
+  void returnBook(memberId, bookId){
+    Member ? member =findMember(memberId);
+    if(member == null){
+      print("Error: Member with ID $memberId not found .");
+      return ;
+    }
+    Book ? book =findBook(bookId);
+    if(book == null){
+      print("Error: Book with ID $bookId not found");
+      return ;
+    }
+    if(member.memberBorrow.contains(book)){
+      print("Error: This member has already borrowed this book.");
+      return ;
+    }
+    book.returnBook();
+    member.removBorrowBook(book);
+  }
+
+  // Search
+ List<Book> searchBooks(keyword){
+   List<Book> search =   _books.where((book)=> book.title.toUpperCase().contains(keyword.toUpperCase()) || book.auther.toUpperCase().contains(keyword.toUpperCase())).toList();
+    return search ;
+  }
+ 
+  //Filtering
+  List<Book> getAvailableBooks(){
+    return _books.where((book) => book.isAvailable).toList();
+  }
+ List<Book> getBorrowedBooks(){
+  return _books.where((book)=> !book.isAvailable).toList();
+}
+  
+List<Book> getBooksByCategory(category){
+  return _books.where((book)=> book.category ==category).toList();
+}
+  // Statistics
+  void statistics(){
+    print("totalBooks  :${_books.length}");
+    int availableBooks = 0;
+    for(var v in _books){
+      if(v.isAvailable){
+        availableBooks ++;
+      }
+    }
+    print("availableBooks $availableBooks");
+    int borrowedBooks =0;
+    for(var v in _books){
+      if(!v.isAvailable){
+        borrowedBooks ++;
+      }
+    }
+    print("borrowedBooks : $borrowedBooks") ;
+    print("totalMembers : ${_members.length}");
+  }
 
   // Show book
   void showbook(){
@@ -60,24 +139,11 @@ class Libray {
       print(" ${books.id} |${books.title} | ${books.auther} | ${books.category} | ${books.isAvailable}");
     }
   }
+
   // Show book
   void showMember(){
     for(var member in _members){
       print(" ${member.id} |${member.name} | ${member.email} ");
       }
   }
-}
-
-void main(){
-  Libray libray =Libray();
-  libray.addBook("", "auther", Category.History);
-    // libray.showbook();
-    print(libray.findBook(0));
-    // libray.showbook();
-  libray.addmember("husein", "huu");
-  libray.showMember();
-  libray.removeMember(id: 10010);
-  libray.showMember();
-  print(libray.findMember(1000));
-
 }
