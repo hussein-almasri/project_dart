@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'categroy.dart';
 import 'expens.dart';
 class ExpensManager {
