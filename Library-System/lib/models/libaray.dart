@@ -103,16 +103,21 @@ class Libray {
   }
  
   //Filtering
+  // Get Available Books
   List<Book> getAvailableBooks(){
     return _books.where((book) => book.isAvailable).toList();
   }
- List<Book> getBorrowedBooks(){
+ 
+ // Get Borrowed  Books
+  List<Book> getBorrowedBooks(){
   return _books.where((book)=> !book.isAvailable).toList();
 }
-  
-List<Book> getBooksByCategory(category){
+
+ // Get Books By Category 
+  List<Book> getBooksByCategory(category){
   return _books.where((book)=> book.category ==category).toList();
 }
+  
   // Statistics
   void statistics(){
     print("totalBooks  :${_books.length}");
