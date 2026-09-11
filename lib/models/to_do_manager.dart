@@ -32,11 +32,9 @@ class TodoManager {
           print("Task is already completed");
           return ;
         }
-        
           task.complete();
           print("Task completed successfully.");
           return ;
-        
       }
     }
    print("Invalid Id In List Of Task");
@@ -80,34 +78,37 @@ class TodoManager {
     }
   }
   // Find Task
-  Task? findtask(int id){
+  Task? findTask(int id){
     if(_tasks.isEmpty){
       print("You don't have Any Task ");
       return null;
     }
-    final find = _tasks.where((task)=> task.id == id).toList();
-    if(find.isEmpty){
-      print("No Task Same This ID");
-      return null;
+    for (var task in _tasks) {
+      if(task.id ==id){
+        return task;
+      }
     }
-    for (var task in find) {
-      return task;
-    }
+      print("You don't Have This ID");
   }
+
   // get total Tasks
+  
   int getTotalTasks(){
     return (_tasks.length);
   }
+
   // int get completedTasksCount
   int getCompletedTask(){
      final getCompleted = _tasks.where((task)=> task.isCompleted).toList();
     return (getCompleted.length) ;
   }
+
   //pendingTasksCount
   int getPendingTask(){
     final getpending = _tasks.where((task)=> !task.isCompleted).toList();
     return getpending.length ;
   }
+
   // List<Task> searchTasks(String keyword)
     List<Task> searchTasks(String keyword){
       List<Task>searchTask = _tasks.where((task)=> (task.title.toUpperCase().contains(keyword.toUpperCase()))).toList();
