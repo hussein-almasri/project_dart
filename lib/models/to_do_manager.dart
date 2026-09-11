@@ -32,11 +32,11 @@ class TodoManager {
           print("Task is already completed");
           return ;
         }
-        else{
+        
           task.complete();
           print("Task completed successfully.");
           return ;
-        }
+        
       }
     }
    print("Invalid Id In List Of Task");
@@ -44,9 +44,76 @@ class TodoManager {
       }
     // Show All Task 
   void showTasks(){
-    for(Task task in _tasks){
-      String status =task.isCompleted ? "Completed": "Pending";
-      print("${task.id} |${task.title} |${task.description} | ${status}");
+    if(_tasks.isNotEmpty){
+      for(Task task in _tasks){
+        String status =task.isCompleted ? "Completed": "Pending";
+        print("${task.id} |${task.title} |${task.description} | ${status}");
+      }
+    }
+    else {
+      print("You Don't Have Any Task ");
     }
   }
+  // show CompletedTasks
+  void showCompletedTasks(){
+    final taskCompelte = _tasks.where((task) => task.isCompleted ).toList();
+
+    if(taskCompelte.isEmpty){
+       print("You Don't Have Any Task Completed");
+       return ;
+    }
+    for( var task in taskCompelte){
+         String status = task.isCompleted ? "Completed": "Pending";
+         print("${task.id} |${task.title} |${task.description} | ${status}") ;
+      }
+    }
+    
+  // showPendingTasks() 
+  void showPendingTasks(){
+    final tasksPending = _tasks.where((task)=> !task.isCompleted).toList();
+    if(tasksPending.isEmpty){
+      print("No Tasks Pending ");
+    }
+    for(var task in tasksPending){
+      String status = task.isCompleted ? "Completed": "Pending";
+      print("${task.id} |${task.title} |${task.description} | ${status}") ;
+    }
+  }
+  // Find Task
+  void findtask(int id){
+    if(_tasks.isEmpty){
+      print("You don't have Any Task ");
+      return ;
+    }
+    final find = _tasks.where((task)=> task.id == id).toList();
+    if(find.isEmpty){
+      print("No Task Same This ID");
+      return ;
+    }
+    for(var task in find){
+      String status = task.isCompleted ? "Completed": "Pending";
+      print("${task.id} |${task.title} |${task.description} | ${status}") ;
+    }
+  }
+  // get total Tasks
+  int getTotalTasks(){
+    return (_tasks.length);
+  }
+  // int get completedTasksCount
+  int getCompletedTask(){
+     final getCompleted = _tasks.where((task)=> task.isCompleted).toList();
+    return (getCompleted.length) ;
+  }
+  //pendingTasksCount
+  int getPendingTask(){
+    final getpending = _tasks.where((task)=> !task.isCompleted).toList();
+    return getpending.length ;
+  }
+  // List<Task> searchTasks(String keyword)
+    List<Task> searchTasks(String keyword){
+      List<Task>searchTask = _tasks.where((task)=> (task.title.toUpperCase().contains(keyword.toUpperCase()))).toList();
+      return searchTask ;
+    }
+
 }
+
