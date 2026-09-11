@@ -18,7 +18,8 @@ void main(){
 
     var ser =todoManager.searchTasks("stuDy") ;
     for(var task in ser){
-      print("${task.id} | ${task.title} | ${task.description} ${task.isCompleted} ");
+      String status = task.isCompleted ? "Completed" :"Pending";
+      print("${task.id} | ${task.title} | ${task.description} ${status} ");
     }
     print(todoManager.getPendingTask());
   }

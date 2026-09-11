@@ -80,19 +80,18 @@ class TodoManager {
     }
   }
   // Find Task
-  void findtask(int id){
+  Task? findtask(int id){
     if(_tasks.isEmpty){
       print("You don't have Any Task ");
-      return ;
+      return null;
     }
     final find = _tasks.where((task)=> task.id == id).toList();
     if(find.isEmpty){
       print("No Task Same This ID");
-      return ;
+      return null;
     }
-    for(var task in find){
-      String status = task.isCompleted ? "Completed": "Pending";
-      print("${task.id} |${task.title} |${task.description} | ${status}") ;
+    for (var task in find) {
+      return task;
     }
   }
   // get total Tasks
