@@ -48,11 +48,15 @@ class Libray {
   }
 
   //Remove Member  By ID
-  void removeMember({required int id}){
-    Member ? memberToRemove =findMember(id);
-    if(memberToRemove == null){
-      print("Error: Members with ID $id not found");
-      return ;
+  void removeMember({required int id}) {
+    Member? memberToRemove = findMember(id);
+    if (memberToRemove == null) {
+      print("Error: Member with ID $id not found.");
+      return;
+    }
+    if (memberToRemove.memberBorrow.isNotEmpty) {
+      print("Cannot remove member because they have borrowed books.");
+      return;
     }
     _members.remove(memberToRemove);
     print("Success: Member '${memberToRemove.name}' has been removed.");
@@ -105,7 +109,7 @@ class Libray {
       return ;
     }
     if(!member.memberBorrow.contains(book)){
-      print("Error: This member has already borrowed this book.");
+      print("Error: This member did not borrow this book.");
       return ;
     }
     book.returnBook();
