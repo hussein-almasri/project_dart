@@ -5,10 +5,14 @@ class ExpenseManager {
   List<Expense> _expenses =[];
   List<Expense> get expenses =>List.unmodifiable(_expenses) ;
   // Add Expense 
-  Expense addExpense(String title ,double amount , Category category){
-    Expense expense =Expense(title, amount ,category);
-      _expenses.add(expense);
-      return expense ;
+  Expense ? addExpense(String title ,double amount , Category category){
+      if(title.isNotEmpty && amount>0){
+      Expense expense =Expense(title, amount ,category);
+        _expenses.add(expense);
+        return expense ;
+    }
+    print("There is something wrong ");
+    return null ;
   }
 
   // remove expense
