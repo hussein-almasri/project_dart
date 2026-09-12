@@ -72,3 +72,41 @@ Quiz-Game/
 │   ├── difficulty.dart
 │   └── quizgame_app.dart
 └── README.md
+```
+## 🧩 Main Classes 
+
+### Question
+
+...
+
+### Player
+
+...
+
+### Quiz
+
+...
+
+### Difficulty
+
+...
+
+## 🧪 Testing
+
+...
+
+## ▶️ How To Run
+
+...
+
+## 🎯 Goal
+
+...
+
+## 📚 Learning Journey
+
+...
+
+## 👨‍💻 Author
+
+...
