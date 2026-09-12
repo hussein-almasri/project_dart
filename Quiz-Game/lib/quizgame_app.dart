@@ -142,7 +142,7 @@ void main() {
   print("\n========== ADD PLAYERS ==========");
 
   Player hussein = quiz.addPlayer("Hussein");
-  Player ahmad = quiz.addPlayer("Ahmad");
+  // Player ahmad = quiz.addPlayer("Ahmad");
 
   print("Players added successfully.");
 
