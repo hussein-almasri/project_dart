@@ -72,7 +72,7 @@ Quiz-Game/
 │   ├── difficulty.dart
 │   └── quizgame_app.dart
 └── README.md
-Main Classes
+🧩 Main Classes
 Question
 
 Represents a quiz question.
@@ -169,8 +169,16 @@ Quiz Game
 Weather/Data App
      ↓
 Flutter 🚀
-👨‍💻 Author
+Author
 
 Hussein
 
 Learning Dart and preparing for Flutter development.
+
+
+### ملاحظة صغيرة
+
+إذا اسم الملف عندك فعليًا:
+
+```text
+quizgame_app.dart
