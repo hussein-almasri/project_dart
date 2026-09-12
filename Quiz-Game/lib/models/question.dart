@@ -1,4 +1,3 @@
-import 'player.dart';
 import 'difficulty.dart';
 class Question {
   
@@ -6,9 +5,9 @@ class Question {
 
   final int  _id ;
   final String question ;
-  final List<dynamic> options ;
-  int  correctAnswer  ;
-  Difficulty difficulty ;
+  final List<String> options ;
+  final int  correctAnswer  ;
+  final Difficulty difficulty ;
   
   int get id =>_id;
   Question(
@@ -19,10 +18,12 @@ class Question {
        ) :_id =_nextId++ ;
 
 
-  bool isCorrectAnswer(Player answer){
+  bool isCorrectAnswer(int answer){
     if(correctAnswer == answer){
       return true ;
     }
     return false ;
   }
+
+  
 }

@@ -2,10 +2,10 @@
 class Player {
 
   final String name ;
-  int score = 0 ;
+  double score = 0 ;
   int correctAnswer =0 ;
   int wrongAnswer =0 ;
-  
+
   Player(this.name);
 
   void correct(){
@@ -15,4 +15,15 @@ class Player {
   void wrong(){
     wrongAnswer ++ ;
   }
+
+  double calculationScore() {
+    int total = correctAnswer + wrongAnswer;
+    if (total == 0) {
+      score = 0;
+      return score ;
+    }
+    score = (correctAnswer / total) * 100;
+    return score ;
+  }
+
 }

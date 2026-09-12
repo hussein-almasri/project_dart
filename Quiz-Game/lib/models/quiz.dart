@@ -1,85 +1,47 @@
 
-
-import 'dart:math';
-
 import 'difficulty.dart';
 import 'player.dart';
 import 'question.dart';
+import 'dart:io';
 class Quiz {
 
   List<Question> _question= [];
   List<Player> _players = [];
-  List<Question> _questionEasy= [];
-  List<Question> _questionMedium= [];
-  List<Question> _questionHard= [];
-  // Add Questiona
-  void addQuestions( String question , List<dynamic>options ,  Difficulty difficulty ,int correctAnswer){
-      if(difficulty == Difficulty.Easy){
-      Question questions =Question(question, options, difficulty, correctAnswer) ;
-      _question.add(questions);
-      _questionEasy.add(questions);
-      return ;
-      }
-      if(difficulty == Difficulty.Medium){
-      Question questions =Question(question, options, difficulty, correctAnswer) ;
-      _question.add(questions);
-      _questionMedium.add(questions);
-      return ;
-      }
-      if(difficulty == Difficulty.Hard){
-      Question questions =Question(question, options, difficulty, correctAnswer) ;
-      _question.add(questions);
-      _questionHard.add(questions);
-      return ;
-      }
 
+  // Add Questiona
+  void addQuestions( String question , List<String>options ,  Difficulty difficulty ,int correctAnswer){
+    if(question.isNotEmpty && options.length ==4 && options.isNotEmpty && correctAnswer >=1 && correctAnswer <=4 ){
+    Question questions =Question(question, options, difficulty, correctAnswer) ;
+    _question.add(questions) ;
+      return ;
+    }
+    print("SomeThing Is Wrong ") ;
   }
  
   // Add Player 
-  void addPlayer(String name){
+  Player addPlayer(String name){
     Player player =Player(name) ;
     _players.add(player);
+    return player ;
   }
 
   // Random Qusetions
-  Question  readimQusetin (Difficulty difficulty){
-    
-    if(difficulty ==Difficulty.Easy){
-      final random = Random();
-      int randomIndex = random.nextInt(_questionEasy.length);
-      Question randomQuestion = _questionEasy[randomIndex];
-      print( "${randomQuestion.question} \n  ${randomQuestion.options} ") ;
-      return randomQuestion;
-    }
-
-      if(difficulty ==Difficulty.Medium){
-      final random = Random();
-      int randomIndex = random.nextInt(_questionMedium.length);
-      Question randomQuestion = _questionMedium[randomIndex];
-      print( "${randomQuestion.question} \n ${randomQuestion.options} ") ;
-        return randomQuestion;
-    }
-      else{
-      final random = Random();
-      int randomIndex = random.nextInt(_questionHard.length);
-      Question randomQuestion = _questionHard[randomIndex];
-      print( "${randomQuestion.question}  \n ${randomQuestion.options} ") ;
-      return randomQuestion;
-    }
+  void  readimQusetin (){
+    _question.shuffle();
 }
   
   // The correct answer is an increase.
   void increaseCorrect(Player player){
-    player.correctAnswer ++ ;
+    player.correct();
   }
   
   // The wrong answer is an increase
     void increaseWrong(Player play){
-      play.wrongAnswer ++ ;
+      play.wrong() ;
     }
   
   // Chick Id IS valide 
-  bool isvalideId(int playerAnswer){
+  bool isValidAnswer(int playerAnswer){
     if(playerAnswer >= 1 && playerAnswer <=4){
       return true ;
     }
@@ -87,44 +49,63 @@ class Quiz {
     return false ;
   }
   
+  // find Qusetions By ID 
+  Question ?findQuestionById(int id){
+    return _question.where((Qid)=> Qid.id ==id).firstOrNull ;
+  }
+  
   // Chick Answer 
-  bool chickAnswer(Player player, int answer , int id){
-    List<Question> chick  = _question.where((question)=> question.id == id && question.correctAnswer == answer).toList() ;
-    if(chick.isEmpty){
-      print("rowng Anwser") ;
+  bool checkAnswer(Player player, int answer, int id) {
+    Question? question = findQuestionById(id); 
+    if (question == null) {
+      print("Question not found.");
+      return false;
+    }
+
+    if (question.isCorrectAnswer(answer)) {
+      print(" Correct Answer!");
+      increaseCorrect(player);
+      return true;
+    } else {
+      print("Wrong Answer!");
       increaseWrong(player);
       return false;
     }
-    print("Carrecat Answeer");
-    increaseCorrect(player);
-    return true ;
   }
   
-  
-  void play(String namePlayer , Difficulty difficulty , int Answer){
+  //Question Filtering 
+  List<Question> getQuestionsByDifficulty(Difficulty difficulty) {
+    return _question.where((q) => q.difficulty == difficulty).toList();
+  }
 
-    print("Enter Your Name ?") ;
-    Player player =Player(namePlayer);
-    print("The First Qusetion Is");
-    Question readimQusetina= readimQusetin(difficulty);
-    print("Enter Your Answer") ;
-    if(!(isvalideId(Answer))){
-      return ;
+  // Get Total Questions
+  int getTotalQuestions(Difficulty ? difficulty){
+    if(difficulty ==null){
+      return _question.length;
     }
-
-    chickAnswer(player,Answer , readimQusetina.id);
-    print("sdxa");
-  }
-  
-
-  // Show All Questions
-  void ShowQuestionsEassy(){
-    for(var question in _questionEasy){
-      print("${question.id} |${question.question} \n${question.options} \n ${question.difficulty} ");
-    }
+    return   _question.where((q)=> q.difficulty ==difficulty).length;
   }
 
-
+  //  GetCorrect Answers
+  int getCorrectAnswers(Player player){
+    return player.correctAnswer ;
+  }
+  //  get Wrong Answers
+  int getWrongAnswers(Player player){
+    return player.wrongAnswer ;
+  }
+  // get Score
+  double getScore(Player player){
+    return player.calculationScore();
+  }
+  // Statistics
+  void statistics(Player player , Difficulty ? difficulty ){
+    print("Total Questions : ${getTotalQuestions(difficulty)}");
+    print(" Correct Answers : ${getCorrectAnswers(player)} ") ;
+    print(" Wrong Answers : ${getWrongAnswers(player)} ") ;
+    print(" Score : ${getScore(player)} ") ;
+    
+  }
   // Show All  Players 
   void showPlayers(){
     for(var player in _players){
@@ -132,11 +113,46 @@ class Quiz {
     }
   }
 
-}
+
+  void startQuiz(Player player, Difficulty? selectedDifficulty) {
+      List<Question> activeQuestions;
+      
+      if (selectedDifficulty != null) {
+        activeQuestions = getQuestionsByDifficulty(selectedDifficulty);
+      } else {
+        activeQuestions = List.from(_question); 
+      }
+      activeQuestions.shuffle();
+
+      for(var e in activeQuestions){
+        print(e.question);
+        print(e.options);
+        print("Enter Your Ansers");
+        while(true){
+          String? input = stdin.readLineSync();
+          int?  answer = int.tryParse(input?? '');
+          if (answer == null || !isValidAnswer(answer)) {
+          } else {
+            checkAnswer(player, answer, e.id);
+            break ;
+          }  
+        }
+      }
+      print("The quiz is over.");
+      print("Final Result");
+      print("Correct : ${getCorrectAnswers(player)}");
+      print("Wrong : ${getWrongAnswers(player)}");
+      print("Score  : ${getScore(player)}%");
+      statistics(player,null );
+    }
+  }
 
 void main(){
-  Quiz quiz=Quiz();
-  quiz.addQuestions("what is 5 + 3", [1 , 2 , 5  ,6 ], Difficulty.Easy, 3);
-  quiz.addQuestions("Hii", [1,2,3,4], Difficulty.Easy, 1);
-  quiz.play("hussein" ,Difficulty.Easy ,1) ;
+
+  Quiz quiz =Quiz();
+  quiz.addQuestions("sdas", ["1", "2", "3 ", "4"], Difficulty.Easy, 1);
+  quiz.addQuestions("wha", ["1", "2", "3 ", "4"], Difficulty.Hard, 1);
+ 
+  quiz.startQuiz(quiz.addPlayer("huuse "), Difficulty.Easy);
+
 }
