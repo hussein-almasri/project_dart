@@ -70,7 +70,7 @@ EXpens-Traker/
 │   ├── categroy.dart
 │   └── expense_manager.dart
 └── README.md
-
+```
 ▶️ How To Run
 
 Make sure Dart SDK is installed.
