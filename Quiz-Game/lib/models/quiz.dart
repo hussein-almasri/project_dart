@@ -63,7 +63,7 @@ class Quiz {
     }
 
     if (question.isCorrectAnswer(answer)) {
-      print(" Correct Answer!");
+      print("Correct Answer!");
       increaseCorrect(player);
       return true;
     } else {
@@ -101,9 +101,9 @@ class Quiz {
   // Statistics
   void statistics(Player player , Difficulty ? difficulty ){
     print("Total Questions : ${getTotalQuestions(difficulty)}");
-    print(" Correct Answers : ${getCorrectAnswers(player)} ") ;
-    print(" Wrong Answers : ${getWrongAnswers(player)} ") ;
-    print(" Score : ${getScore(player)} ") ;
+    print("Correct Answers : ${getCorrectAnswers(player)} ") ;
+    print("Wrong Answers : ${getWrongAnswers(player)} ") ;
+    print("Score : ${getScore(player)} ") ;
     
   }
   // Show All  Players 
